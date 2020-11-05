@@ -18,37 +18,39 @@ guessButton.addEventListener('click', () => {
   target = generateTarget();
   // Retrieve the player's guess
   const currentHumanGuess = humanGuessInput.value;
-  // Make a random 'computer guess'
-  const computerGuess = Math.floor(Math.random() * 10);
+  if(choiceAlert(currentHumanGuess)) {
+    // Make a random 'computer guess'
+    const computerGuess = Math.floor(Math.random() * 10);
 
-  // Display the computer guess and the target
-  computerGuessDisplay.innerText = computerGuess;
-  targetNumberDisplay.innerText = target;
-  
-  // Determine if the human or computer wins:
-  const humanIsWinner = compareGuesses(currentHumanGuess, computerGuess, target)
-  const winner = humanIsWinner ? 'human' : 'computer'
+    // Display the computer guess and the target
+    computerGuessDisplay.innerText = computerGuess;
+    targetNumberDisplay.innerText = target;
+    
+    // Determine if the human or computer wins:
+    const humanIsWinner = compareGuesses(currentHumanGuess, computerGuess, target)
+    const winner = humanIsWinner ? 'human' : 'computer'
 
-  // Update the correct score:
-  updateScore(winner);
+    // Update the correct score:
+    updateScore(winner);
 
-  // Display the winner
-  if (humanIsWinner) {
-    guessButton.innerText = 'You Win!!!!!';
-    guessButton.classList.toggle('winning-text')
-  } else {
-    computerWinsDisplay.innerText = 'Computer Wins!!!';
+    // Display the winner
+    if (humanIsWinner) {
+      guessButton.innerText = 'You Win!!!!!';
+      guessButton.classList.toggle('winning-text')
+    } else {
+      computerWinsDisplay.innerText = 'Computer Wins!!!';
+    }
+
+    // winnerDisplay.innerText = humanIsWinner ? 'You win!' : 'Computer wins!';
+
+    // Display the current scores:
+    humanScoreDisplay.innerText = humanScore;
+    computerScoreDisplay.innerText = computerScore;
+    
+    // Set the correct disabled state for the buttons
+    guessButton.setAttribute('disabled', true)
+    nextRoundButton.removeAttribute('disabled');
   }
-
-  // winnerDisplay.innerText = humanIsWinner ? 'You win!' : 'Computer wins!';
-
-  // Display the current scores:
-  humanScoreDisplay.innerText = humanScore;
-  computerScoreDisplay.innerText = computerScore;
-  
-  // Set the correct disabled state for the buttons
-  guessButton.setAttribute('disabled', true)
-  nextRoundButton.removeAttribute('disabled');
 });
 
 nextRoundButton.addEventListener('click', () => {
